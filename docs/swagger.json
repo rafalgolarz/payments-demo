@@ -178,31 +178,38 @@
       "properties": {
         "account_name": {
           "type": "string",
-          "description": "Beneficiary account name"
+          "description": "Beneficiary account name",
+          "example": "John Rambo"
         },
         "account_number": {
           "type": "string",
-          "description": "Beneficiary account number"
+          "description": "Beneficiary account number",
+          "example": 31926819
         },
         "account_number_code": {
           "type": "string",
-          "description": "IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA"
+          "description": "IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA",
+          "example": "IBAN"
         },
         "address": {
           "type": "string",
-          "description": "Beneficiary address"
+          "description": "Beneficiary address",
+          "example": "1 The Beneficiary Localtown SE2"
         },
         "bank_id": {
           "type": "string",
-          "description": "id reference to the list of banks"
+          "description": "id reference to the list of banks",
+          "example": 403000
         },
         "bank_id_code": {
           "type": "string",
-          "description": "Clearing code (ISO20022)"
+          "description": "Clearing code (ISO20022)",
+          "example": "GBDSC"
         },
         "name": {
           "type": "string",
-          "description": "Beneficiary name (could be an organisation)"
+          "description": "Beneficiary name (could be an organisation)",
+          "example": "Bruce Lee"
         }
       }
     },
@@ -211,23 +218,28 @@
       "properties": {
         "bearer_code": {
           "type": "string",
-          "description": "Values according to ISO20022 (DEBT, CRED, SHAR, SLEV)"
+          "description": "Values according to ISO20022 (DEBT, CRED, SHAR, SLEV)",
+          "example": "SHAR"
         },
         "sender_charges_amount": {
           "type": "string",
-          "description": "Sender’s charges"
+          "description": "Sender’s charges",
+          "example": "5.00"
         },
         "sender_charges_currency": {
           "type": "string",
-          "description": "Sender’s charges currency"
+          "description": "Sender’s charges currency",
+          "example": "GBP"
         },
         "receiver_charges_amount": {
           "type": "string",
-          "description": "Amount charged"
+          "description": "Amount charged",
+          "example": "1.00"
         },
         "receiver_charges_currency": {
           "type": "string",
-          "description": "Currency of the charged amount"
+          "description": "Currency of the charged amount",
+          "example": "USD"
         }
       }
     },
@@ -236,31 +248,38 @@
       "properties": {
         "account_name": {
           "type": "string",
-          "description": "Debtor's account name"
+          "description": "Debtor's account name",
+          "example": "Martin Sheen"
         },
         "account_number": {
           "type": "string",
-          "description": "Debtor's account number"
+          "description": "Debtor's account number",
+          "example": "GB29XABC10161234567801"
         },
         "account_number_code": {
           "type": "string",
-          "description": "IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA"
+          "description": "IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA",
+          "example": "IBAN"
         },
         "address": {
           "type": "string",
-          "description": "Debtor's address"
+          "description": "Debtor's address",
+          "example": "10 Debtor Crescent Sourcetown NE1"
         },
         "bank_id": {
           "type": "string",
-          "description": "ID reference to the list of banks"
+          "description": "ID reference to the list of banks",
+          "example": 203301
         },
         "bank_id_code": {
           "type": "string",
-          "description": "Clearing code (ISO20022)"
+          "description": "Clearing code (ISO20022)",
+          "example": "GBDSC"
         },
         "name": {
           "type": "string",
-          "description": "Debtor's name (could be an organisation)"
+          "description": "Debtor's name (could be an organisation)",
+          "example": "Jacky Chan"
         }
       }
     },
@@ -269,19 +288,23 @@
       "properties": {
         "contract_reference": {
           "type": "string",
-          "description": "Reference to the exchange contract"
+          "description": "Reference to the exchange contract",
+          "example": "FX123"
         },
         "exchange_rate": {
           "type": "string",
-          "description": "Exchange rate (5 digits after the decimal point)"
+          "description": "Exchange rate (5 digits after the decimal point)",
+          "example": "2.00000"
         },
         "original_amount": {
           "type": "string",
-          "description": "Sender’s amount converted to the receiver’s currency"
+          "description": "Sender’s amount converted to the receiver’s currency",
+          "example": "200.42"
         },
         "original_currency": {
           "type": "string",
-          "description": "Receiver’s currency"
+          "description": "Receiver’s currency",
+          "example": "USD"
         }
       }
     },
@@ -290,12 +313,14 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "Resource type"
+          "description": "Resource type",
+          "example": "Payment"
         },
         "id": {
           "type": "string",
           "format": "UUID",
-          "description": "Resource identifier (used in CRUD operations)"
+          "description": "Resource identifier (used in CRUD operations)",
+          "example": "4ee3a8d8-ca7b-4290-a52c-dd5b6165ec43"
         },
         "version": {
           "type": "integer",
@@ -303,11 +328,13 @@
         },
         "organisation_id": {
           "type": "string",
-          "description": "Organisation identifier"
+          "description": "Organisation identifier",
+          "example": "743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb"
         },
         "amount": {
           "type": "string",
-          "description": "Transaction value (decimal point)"
+          "description": "Transaction value (decimal point)",
+          "example": 12300.21
         },
         "beneficiary_party": {
           "$ref": "#/definitions/BeneficiaryParty"
@@ -317,7 +344,8 @@
         },
         "currency": {
           "type": "string",
-          "description": "Original currency of the transaction (ISO4217)"
+          "description": "Original currency of the transaction (ISO4217)",
+          "example": "GBP"
         },
         "debtor_party": {
           "$ref": "#/definitions/DebtorParty"
@@ -327,15 +355,18 @@
         },
         "payment_purpose": {
           "type": "string",
-          "description": "Reason for transaction"
+          "description": "Reason for transaction",
+          "example": "Paying for goods/services"
         },
         "payment_type": {
           "type": "string",
-          "description": "Direct Debit, Credit, etc"
+          "description": "Direct Debit, Credit, etc",
+          "example": "Credit"
         },
         "processing_date": {
           "type": "string",
-          "description": "Payment will be debited from the debitor account on that date (YYYY-MM-DD)"
+          "description": "Payment will be debited from the debitor account on that date (YYYY-MM-DD)",
+          "example": "2017-01-18"
         }
       }
     },
