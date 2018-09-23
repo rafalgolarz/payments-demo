@@ -1,0 +1,242 @@
+swagger: "2.0"
+info:
+  title: Payments API Demo
+  description: A demo of RESTful API for CRUD operations on payments
+  version: 0.1.0
+  contact:
+    email: web@rafalgolarz.com
+schemes:
+- http
+tags:
+- name: payments
+  description: Show (all or by ID), Add, Update, Delete payment
+host: localhost
+basePath: /v1
+paths:
+  /payments:
+    get:
+      tags:
+      - payments
+      summary: Show all payments
+      description: This can only be done by the logged in user.
+      operationId: getPayments
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Success response
+          schema:
+            $ref: "#/definitions/Payments"
+    post:
+      tags:
+      - payments
+      summary: Add a new payment
+      description: This can only be done by the logged in user.
+      operationId: addPayment
+      parameters:
+      - name: body
+        in: body
+        description: Payment object that needs to be added
+        schema:
+          $ref: "#/definitions/Payment"
+        required: true
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        405:
+          description: Invalid input
+
+  /payments/{paymentId}:
+    get:
+      tags:
+      - payments
+      summary: Find payment by ID
+      description: This can only be done by the logged in user.
+      operationId: getPaymentByID
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Success response
+          schema:
+            $ref: "#/definitions/Payment"
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Payment not found
+    delete:
+      tags:
+      - payments
+      summary: Delete payment by ID
+      description: This can only be done by the logged in user.
+      operationId: deletePaymentByID
+      produces:
+      - application/json
+      parameters:
+      - name: paymentId
+        in: path
+        description: The payment ID that needs to be deleted
+        required: true
+        type: string
+      responses:
+        400:
+          description: Invalid paymentID supplied
+        404:
+          description: Payment not found
+    put:
+      tags:
+      - payments
+      summary: Update payment by ID
+      description: This can only be done by the logged in user.
+      operationId: updatePaymentByID
+      produces:
+      - application/json
+      parameters:
+      - name: paymentId
+        in: path
+        description: The payment ID that needs to be updated
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: Updated payment object
+        required: true
+        schema:
+          $ref: "#/definitions/Payment"
+      responses:
+        400:
+          description: Invalid paymentID supplied
+        404:
+          description: Payment not found
+definitions:
+  BeneficiaryParty:
+    type: object
+    properties:
+      account_name:
+        type: string
+        description: Beneficiary account name
+      account_number:
+        type: string
+        description: Beneficiary account number
+      account_number_code:
+        type: string
+        description: IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA
+      address:
+        type: string
+        description: Beneficiary address
+      bank_id:
+        type: string
+        description: id reference to the list of banks
+      bank_id_code:
+        type: string
+        description: Clearing code (ISO20022)
+      name:
+        type: string
+        description: Beneficiary name (could be an organisation)
+  ChargesInformation:
+    type: object
+    properties:
+      bearer_code:
+        type: string
+        description: Values according to ISO20022 (DEBT, CRED, SHAR, SLEV)
+      sender_charges_amount:
+        type: string
+        description: Sender’s charges
+      sender_charges_currency:
+        type: string
+        description: Sender’s charges currency
+      receiver_charges_amount:
+        type: string
+        description: Amount charged
+      receiver_charges_currency:
+        type: string
+        description: Currency of the charged amount
+  DebtorParty:
+    type: object
+    properties:
+      account_name:
+        type: string
+        description: Debtor's account name
+      account_number:
+        type: string
+        description: Debtor's account number
+      account_number_code:
+        type: string
+        description: IBAN, BBAN, BIC, SEPA, ECB, SWIFT, EFTA
+      address:
+        type: string
+        description: Debtor's address
+      bank_id:
+        type: string
+        description: ID reference to the list of banks
+      bank_id_code:
+        type: string
+        description: Clearing code (ISO20022)
+      name:
+        type: string
+        description: Debtor's name (could be an organisation)
+  Fx:
+    type: object
+    properties:
+      contract_reference:
+        type: string
+        description: Reference to the exchange contract
+      exchange_rate:
+        type: string
+        description: Exchange rate (5 digits after the decimal point)
+      original_amount:
+        type: string
+        description: Sender’s amount converted to the receiver’s currency
+      original_currency:
+        type: string
+        description: Receiver’s currency
+  Payment:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Resource type
+      id:
+        type: string
+        format: UUID
+        description: Resource identifier (used in CRUD operations)
+      version:
+        type: integer
+        description: Version of the record (initially 0)
+      organisation_id:
+        type: string
+        description: Organisation identifier
+      amount:
+        type: string
+        description: Transaction value (decimal point)
+      beneficiary_party:
+         $ref: "#/definitions/BeneficiaryParty"
+      charges_information:
+        $ref: "#/definitions/ChargesInformation"
+      currency:
+        type: string
+        description: Original currency of the transaction (ISO4217)
+      debtor_party:
+        $ref: "#/definitions/DebtorParty"
+      fx:
+        $ref: "#/definitions/Fx"
+      payment_purpose:
+        type: string
+        description: Reason for transaction
+      payment_type:
+        type: string
+        description: Direct Debit, Credit, etc
+      processing_date:
+        type: string
+        description: Payment will be debited from the debitor account on that date (YYYY-MM-DD)
+  Payments:
+    type: array
+    items:
+      $ref: "#/definitions/Payment"
