@@ -151,23 +151,13 @@ func TestAddPayment(t *testing.T) {
 func TestUpdatePaymentByID(t *testing.T) {
 	r := getRouter()
 
-	// r.POST("/v1/payments", addPayment)
-	// req, _ := http.NewRequest("POST", "/v1/payments", bytes.NewReader(jsonPOST))
-	// req.Header.Add("Content-Type", "application/json")
-	// req.Header.Add("Content-Length", strconv.Itoa(len(jsonPOST)))
-
-	// testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
-	// 	statusOK := w.Code == http.StatusOK
-	// 	return statusOK
-	// })
-
 	r.PUT("/v1/payments", updatePaymentByID)
 	req, _ := http.NewRequest("PUT", "/v1/payments/4ee3a8d8-ca7b-4290-a52c-dd5b6165ec43", bytes.NewReader(jsonPUT))
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Content-Length", strconv.Itoa(len(jsonPUT)))
 
 	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
-		statusOK := w.Code == http.StatusOK
+		statusOK := w.Code == http.StatusNotFound
 		return statusOK
 	})
 }
