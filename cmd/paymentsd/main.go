@@ -68,7 +68,6 @@ func addPayment(c *gin.Context) {
 
 	err = paymentsDB.CreatePayment(&p)
 	if err != nil {
-		logHandler.Error("could not add a payment", log.Fields{"err": err, "func": "addPayment"})
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": "Could not add a payment"})
 		return
 	}
@@ -93,8 +92,7 @@ func updatePaymentByID(c *gin.Context) {
 
 	err = paymentsDB.UpdatePayment(c.Param("id"), &p)
 	if err != nil {
-		logHandler.Error("could not update the payment", log.Fields{"err": err, "func": "updatePaymentByID"})
-		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": "Could not update the payment"})
+		c.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Could not update the payment"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "Payment updated"})
@@ -115,7 +113,6 @@ func deletePaymentByID(c *gin.Context) {
 
 	err = paymentsDB.DeletePayment(c.Param("id"))
 	if err != nil {
-		logHandler.Error("could not delete the payment", log.Fields{"err": err, "func": "deletePaymentByID"})
 		c.JSON(http.StatusNotFound, gin.H{"status": "error", "message": "Could not find a payment"})
 		return
 	}
