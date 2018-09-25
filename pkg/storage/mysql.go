@@ -2,6 +2,7 @@ package storage
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -157,6 +158,15 @@ func (db *DBHandler) GetPayment(uuid string) (*Payments, error) {
 		return nil, err
 	}
 
+	str := *payments.PaymentsProcessingDate
+	t, err := time.Parse(time.RFC3339, str)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	ts := t.Format("2006-01-02")
+
+	payments.PaymentsProcessingDate = &ts
 	return &payments, nil
 }
 
