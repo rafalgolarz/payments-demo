@@ -74,3 +74,9 @@ go build .
 
 ./paymentsd
 ```
+
+### JavaScript Client
+
+I built a dedicated JavaScript (Vue.js) client to test CRUD on the API:
+
+https://github.com/rafalgolarz/payments-demo-client
